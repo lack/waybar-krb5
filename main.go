@@ -48,7 +48,10 @@ func loop(interval time.Duration) {
 				status.Class = []string{Auth}
 				status.Alt = Auth
 				status.Tooltip += ": Valid"
-				status.Tooltip += fmt.Sprintf("\n\nExpires in %s\nRenewable for %s", round(ks.Remaining, interval), round(ks.Renewal, interval))
+				status.Tooltip += fmt.Sprintf("\n\nExpires in %s", round(ks.Remaining, interval))
+				if ks.Renewal > 0 {
+					status.Tooltip += fmt.Sprintf("\nRenewable for %s", round(ks.Renewal, interval))
+				}
 				if ks.Remaining < expiryWarning {
 					status.Class = append(status.Class, Expiring)
 				}
